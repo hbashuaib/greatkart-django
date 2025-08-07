@@ -33,10 +33,10 @@
 
                             <hr>
                             <div class="row">
-                                <div class="item-option-select">
+                                <div class="col-lg-4 mb-3">
                                     <h6>Choose Color</h6>
-                                    <select name="color" class="form-control" required>
-                                        <option value="" disabled selected>Select</option>
+                                    <select name="color" class="form-select" required>
+                                        <option disabled selected>Select</option>
                                         {% for i in single_product.variation_set.colors %}
                                             <option value="{{ i.variation_value | lower }}">{{ i.variation_value | capfirst }}</option>
                                         {% endfor %}                                        
@@ -44,10 +44,10 @@
                                 </div>
                             </div> <!-- row.// -->
                             <div class="row">
-                                <div class="item-option-select">
+                                <div class="col-lg-4">
                                     <h6>Select Size</h6>
-                                    <select name="size" class="form-control">
-                                        <option value="" disabled selected>Select</option>
+                                    <select name="size" class="form-select">
+                                        <option disabled selected>Select</option>
                                         {% for i in single_product.variation_set.sizes %}
                                             <option value="{{ i.variation_value | lower }}">{{ i.variation_value | capfirst }}</option>
                                         {% endfor %} 
@@ -95,13 +95,10 @@
                             quis nostrud exercitation ullamco laboris nisi ut aliquip
                         </p>	
                     </div>
-                </article>
-
-            
+                </article>           
 
             </div> <!-- col.// -->
         </div> <!-- row.// -->
-
 
     </div> <!-- container .//  -->
 </section>

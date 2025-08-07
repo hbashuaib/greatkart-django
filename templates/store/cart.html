@@ -54,7 +54,7 @@
                                                         <div class="col"> 
                                                             <div class="input-group input-spinner">
                                                                 <div class="input-group-prepend">
-                                                                <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}" class="btn btn-light" type="button" id="button-minus"> <i class="fa fa-minus"></i> </a>
+                                                                    <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}" class="btn btn-light" type="button" id="button-minus"> <i class="fa fa-minus"></i> </a>
                                                                 </div>
                                                                 <input type="text" class="form-control"  value="{{ cart_item.quantity }}">
                                                                 <div class="input-group-append">
@@ -76,7 +76,7 @@
                                                 <small class="text-muted"> $ {{ cart_item.product.price }} each </small>
                                             </div> <!-- price-wrap .// -->
                                         </td>
-                                        <td class="text-right"> 
+                                        <td class="text-end"> 
                                         <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-danger"> Remove</a>
                                         </td>
                                     </tr>  
@@ -90,24 +90,30 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <dl class="dlist-align">
-                                <dt>Total price:</dt>
-                                <dd class="text-right">$ {{ total }}</dd>
+                            <dl class="row">
+                                <dt class="col-lg-6">Total price:</dt>
+                                <dd class="col-lg-6 text-end">$ {{ total }}</dd>
                             </dl>
-                            <dl class="dlist-align">
-                                <dt>Tax:</dt>
-                                <dd class="text-right"> $ {{ tax }}</dd>
+                            <dl class="row">
+                                <dt class="col-lg-6">Tax:</dt>
+                                <dd class="col-lg-6 text-end"> $ {{ tax }}</dd>
                             </dl>
-                            <dl class="dlist-align">
-                                <dt>Grand Total:</dt>
-                                <dd class="text-right text-dark b"><strong>$ {{ grand_total }}</strong></dd>
+                            <dl class="row">
+                                <dt class="col-lg-6">Grand Total:</dt>
+                                <dd class="col-lg-6 text-end text-dark b"><strong>$ {{ grand_total }}</strong></dd>
                             </dl>
                             <hr>
                             <p class="text-center mb-3">
                                 <img src="{% static './images/misc/payments.png' %}" height="26">
                             </p>
-                            <a href="./place-order.html" class="btn btn-primary btn-block"> Checkout </a>
-                            <a href="{% url 'store' %}" class="btn btn-light btn-block">Continue Shopping</a>
+                            <div class="row mb-3">
+                                <a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Checkout </a>
+                            </div>
+                            <div class="row mb-3">
+                                <a href="{% url 'store' %}" class="btn btn-light btn-block">Continue Shopping</a>
+                            </div>
+                            
+                            
                         </div> <!-- card-body.// -->
                     </div> <!-- card.// -->
 
