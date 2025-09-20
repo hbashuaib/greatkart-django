@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'store',
     'carts',
     'orders',
-    'admin_honeypot',    
+    'admin_honeypot',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -103,6 +104,32 @@ DATABASES = {
     }
 }
 
+
+# Configure AWS S3 Settings (Django 4.2+ recommended):
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "AWS_ACCESS_KEY_ID": "AKIAZTVSYQDIMJA5PG3D",
+            "AWS_SECRET_ACCESS_KEY": "bXoN6JGTryqr8m738ntoVN8IxlokumaZq9kHE6nR",
+            "AWS_STORAGE_BUCKET_NAME": "greatkartbs660726120656",
+            "AWS_S3_REGION_NAME": "us-west-2", # e.g., 'us-east-1'
+            "AWS_S3_SIGNATURE_VERSION": "s3v4",
+            "AWS_S3_FILE_OVERWRITE": False, 
+            "AWS_DEFAULT_ACL": None, 
+        },
+    },
+    "staticfiles": { 
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+        "OPTIONS": {
+            "AWS_ACCESS_KEY_ID": "AKIAZTVSYQDIMJA5PG3D",
+            "AWS_SECRET_ACCESS_KEY": "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",
+            "AWS_STORAGE_BUCKET_NAME": "greatkartbs660726120656",
+            "AWS_S3_REGION_NAME": "us-west-2",
+            "AWS_S3_SIGNATURE_VERSION": "s3v4",            
+        }
+    }
+}
 
 
 # Password validation
@@ -167,12 +194,4 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 
-AWS_ACCESS_KEY_ID = 'AKIAZTVSYQDIMJA5PG3D'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'greatkartbs660726120656'
-AWS_S3_SIGNATURE_NAME = 's3v4',
-AWS_S3_REGION_NAME = 'us-west-2'
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL =  None
-AWS_S3_VERIFY = True
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
