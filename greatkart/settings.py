@@ -106,30 +106,33 @@ DATABASES = {
 
 
 # Configure AWS S3 Settings (Django 4.2+ recommended):
+AWS_ACCESS_KEY_ID = 'AKIAZTVSYQDIMJA5PG3D'
+AWS_SECRET_ACCESS_KEY = 'bXoN6JGTryqr8m738ntoVN8IxlokumaZq9kHE6nR'
+AWS_STORAGE_BUCKET_NAME = 'greatkartbs660726120656'
+AWS_S3_REGION_NAME = 'us-west-2'  # e.g., 'us-east-1'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_FILE_OVERWRITE = False 
+AWS_DEFAULT_ACL: None
+
 STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         "OPTIONS": {
-            "AWS_ACCESS_KEY_ID": "AKIAZTVSYQDIMJA5PG3D",
-            "AWS_SECRET_ACCESS_KEY": "bXoN6JGTryqr8m738ntoVN8IxlokumaZq9kHE6nR",
-            "AWS_STORAGE_BUCKET_NAME": "greatkartbs660726120656",
-            "AWS_S3_REGION_NAME": "us-west-2", # e.g., 'us-east-1'
-            "AWS_S3_SIGNATURE_VERSION": "s3v4",
-            "AWS_S3_FILE_OVERWRITE": False, 
-            "AWS_DEFAULT_ACL": None, 
+            "location": "media",  # Optional: Prefix for media files in S3
         },
     },
-    "staticfiles": { 
-        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         "OPTIONS": {
-            "AWS_ACCESS_KEY_ID": "AKIAZTVSYQDIMJA5PG3D",
-            "AWS_SECRET_ACCESS_KEY": "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",
-            "AWS_STORAGE_BUCKET_NAME": "greatkartbs660726120656",
-            "AWS_S3_REGION_NAME": "us-west-2",
-            "AWS_S3_SIGNATURE_VERSION": "s3v4",            
-        }
-    }
+            "location": "static",  # Optional: Prefix for static files in S3
+        },
+    },
 }
+
+# Set the default file storage for media files
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
 
 
 # Password validation
@@ -168,14 +171,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+
+# STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR /'static'
 STATICFILES_DIRS = [
     'greatkart/static',
 ]
 
 # Media Files Settings:
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR /'media'
 
 from django.contrib.messages import constants as messages
