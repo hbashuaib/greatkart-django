@@ -112,7 +112,7 @@ AWS_STORAGE_BUCKET_NAME = 'greatkartbs660726120656'
 AWS_S3_REGION_NAME = 'us-west-2'  # e.g., 'us-east-1'
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 AWS_S3_FILE_OVERWRITE = False 
-AWS_DEFAULT_ACL: None
+AWS_DEFAULT_ACL = 'public-read'
 
 STORAGES = {
     "default": {
