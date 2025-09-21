@@ -108,9 +108,9 @@ DATABASES = {
 # Configure AWS S3 Settings (Django 4.2+ recommended):
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = 'greatkartbs660726120656'
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = 'us-west-2'  # e.g., 'us-east-1'
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_CUSTOM_DOMAIN = f'{config("AWS_S3_CUSTOM_DOMAIN")}.s3.amazonaws.com'
 AWS_S3_FILE_OVERWRITE = False 
 AWS_DEFAULT_ACL = 'public-read'
 
@@ -173,8 +173,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_LOCATION = 'static'
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+STATIC_URL = f'https://{config("AWS_S3_CUSTOM_DOMAIN")}/static/'
+MEDIA_URL = f'https://{config("AWS_S3_CUSTOM_DOMAIN")}/media/'
 
 # STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR /'static'
