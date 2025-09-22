@@ -96,11 +96,11 @@ AUTH_USER_MODEL = 'accounts.Account'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'greatkartdb',
-        'USER': 'greatkart_admin',
-        'PASSWORD': 'Ghaith27GreatKart',
-        'HOST': 'greatkart-db.cj4woia409ue.us-west-2.rds.amazonaws.com',
-        'PORT': '5432',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT', cast=int),
     }
 }
 
@@ -109,10 +109,10 @@ DATABASES = {
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_REGION_NAME = 'us-west-2'  # e.g., 'us-east-1'
-AWS_S3_CUSTOM_DOMAIN = f'{config("AWS_S3_CUSTOM_DOMAIN")}.s3.amazonaws.com'
-AWS_S3_FILE_OVERWRITE = False 
-AWS_DEFAULT_ACL = 'public-read'
+AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')  # e.g., 'us-east-1'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_FILE_OVERWRITE = config('AWS_S3_FILE_OVERWRITE', default=False, cast=bool) 
+AWS_DEFAULT_ACL = config('AWS_DEFAULT_ACL')
 
 STORAGES = {
     "default": {
@@ -173,8 +173,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_LOCATION = 'static'
-STATIC_URL = f'https://{config("AWS_S3_CUSTOM_DOMAIN")}/static/'
-MEDIA_URL = f'https://{config("AWS_S3_CUSTOM_DOMAIN")}/media/'
+STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}/static/'
+MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}/media/'
 
 # STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR /'static'
